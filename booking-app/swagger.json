@@ -1,0 +1,489 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.5",
+    "title": "Booking App",
+    "description": "Find your next stay Search deals on hotels, homes, and much more...",
+    "license": {
+      "name": "B3ns44d",
+      "url": "https://github.com/B3ns44d"
+    }
+  },
+  "host": "127.0.0.1:3001",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Auth API"
+    }
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Create a new user",
+        "description": "",
+        "operationId": "createUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that needs to be added to the system",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserSignup"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "400": {
+            "description": "Invalid user object"
+          },
+          "500": {
+            "description": "Error while creating user"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login a user",
+        "description": "",
+        "operationId": "loginUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that needs to login the user in",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserLogin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User logged in"
+          },
+          "400": {
+            "description": "Invalid user object"
+          },
+          "500": {
+            "description": "Error while creating user"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Logout a user",
+        "description": "",
+        "operationId": "logoutUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that needs to be logout user from the system",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserLogout"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User logged out"
+          },
+          "400": {
+            "description": "Invalid user object"
+          }
+        }
+      }
+    },
+    "/auth/active": {
+      "patch": {
+        "tags": ["Auth"],
+        "summary": "Verify a user",
+        "description": "",
+        "operationId": "verifyUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Verify the user information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserVerify"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User has been verified successfully"
+          },
+          "400": {
+            "description": "Invalid user object"
+          }
+        }
+      }
+    },
+    "/auth/forgot": {
+      "patch": {
+        "tags": ["Auth"],
+        "summary": "Forgot password",
+        "description": "",
+        "operationId": "forgotPassword",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserForgot"
+            }
+          }
+        ]
+      }
+    },
+    "/auth/reset/{token}": {
+      "patch": {
+        "tags": ["Auth"],
+        "summary": "Reset password",
+        "description": "",
+        "operationId": "resetPassword",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Reset user password",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserReset"
+            }
+          }
+        ]
+      }
+    },
+    "/hotel/{id}": {
+      "get": {
+        "tags": ["Hotel"],
+        "summary": "Get hotel by id",
+        "description": "",
+        "operationId": "getHotelById",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Hotel id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hotel found",
+            "schema": {
+              "$ref": "#/definitions/Hotel"
+            }
+          },
+          "400": {
+            "description": "Invalid id"
+          },
+          "404": {
+            "description": "Hotel not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Hotel"],
+        "summary": "Remove a hotel",
+        "description": "",
+        "operationId": "removeHotel",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Hotel id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hotel removed"
+          },
+          "400": {
+            "description": "Invalid id"
+          },
+          "404": {
+            "description": "Hotel not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Hotel"],
+        "summary": "Update a hotel",
+        "description": "",
+        "operationId": "updateHotel",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Hotel id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Hotel object that needs to be updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Hotel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hotel updated"
+          },
+          "400": {
+            "description": "Invalid id"
+          },
+          "404": {
+            "description": "Hotel not found"
+          }
+        }
+      }
+    },
+    "/hotel": {
+      "get": {
+        "tags": ["Hotel"],
+        "summary": "Get all hotels",
+        "description": "",
+        "operationId": "getAllHotels",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit number",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hotels found",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Hotel"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid page or limit"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Hotel"],
+        "summary": "Create a hotel",
+        "description": "",
+        "operationId": "createHotel",
+        "consumes": ["application/json", "multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Hotel object that needs to be created",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Hotel"
+            }
+          },
+          {
+            "in": "formData",
+            "name": "images",
+            "type": "file",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "images",
+            "type": "file",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "images",
+            "type": "file",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "images",
+            "type": "file",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Hotel created"
+          },
+          "400": {
+            "description": "Invalid hotel object"
+          },
+          "500": {
+            "description": "Error while creating hotel"
+          }
+        }
+      }
+    }
+  },
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "securityDefinitions": {
+    "auth0": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "UserSignup": {
+      "type": "object",
+      "properties": {
+        "userName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "confirmPassword": {
+          "type": "string"
+        }
+      }
+    },
+    "UserLogin": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "UserLogout": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        }
+      }
+    },
+    "UserVerify": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        }
+      }
+    },
+    "UserForgot": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "UserReset": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "newPassword": {
+          "type": "string"
+        },
+        "confirmPassword": {
+          "type": "string"
+        }
+      }
+    },
+    "Hotel": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "required": true,
+          "max": [128, "Too long, max is 128 characters"]
+        },
+        "city": {
+          "type": "string",
+          "required": true
+        },
+        "street": {
+          "type": "string",
+          "required": true,
+          "min": [4, "Too short, min is 4 characters"]
+        },
+
+        "stars": {
+          "type": "number",
+          "required": false
+        },
+        "user": {
+          "type": "string",
+          "required": true
+        }
+      }
+    }
+  }
+}

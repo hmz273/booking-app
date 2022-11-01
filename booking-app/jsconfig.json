@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "checkJs": false,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "target": "es2020",
+    "module": "es2015",
+    "baseUrl": ".",
+    "paths": {
+      "@test/*": ["./src/__tests__/*"],
+      "@config/*": ["./src/config/*"],
+      "@routes/*": ["./core/routes/*"],
+      "@router/*": ["./router/*"],
+      "@models/*": ["./core/models/*"],
+      "@controllers/*": ["./core/controllers/*"],
+      "@middlewares/*": ["./core/middlewares/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@constants/*": ["./src/shared/constants/*"]
+    }
+  },
+  "exclude": ["node_modules", "**/node_modules"],
+  "typeAcquisition": {
+    "enable": true
+  }
+}

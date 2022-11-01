@@ -1,0 +1,32 @@
+name: Run Deployment pipeline
+
+
+on:
+  push:
+    branches:
+      - staging
+
+
+jobs:
+  devflow:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@master
+
+    - name: context
+      uses: okteto/context@latest
+      with:
+        token: ${{ secrets.OKTETO_TOKEN }}
+
+    - name: "Activate Namespace"
+      uses: okteto/namespace@latest
+      with:
+        name: b3ns44d
+
+    - name: "Trigger the pipeline"
+      uses: okteto/pipeline@latest
+      with:
+        name: booking-app
+        timeout: 8m
+        skipIfExists: true

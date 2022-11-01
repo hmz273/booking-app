@@ -1,0 +1,8 @@
+name: api
+command: sh
+sync:
+- .:/app
+forward:
+- 9229:9229
+- 4001:4001
+- 3004:3004

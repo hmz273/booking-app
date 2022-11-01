@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: booking_api
+    ports:
+      - "4001:4001"
+    depends_on:
+      - "mongodb"
+    environment:
+      - PORT=${PORT}
+      - DATABASE_URL=${DATABASE_URL}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - JWT_EXPIRATION_TIME=${JWT_EXPIRATION_TIME}
+      - JWT_SECRET=${JWT_SECRET}
+    volumes:
+      - ./:/app
+  mongodb: 
+    image: mongo
+    volumes:
+      - data:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    restart: always
+    command: mongod --quiet
+  verify-email: 
+    image: ghcr.io/b3ns44d/verify-phone:sha-88c8979
+    container_name: verify-email
+    ports:
+      - "4002:3009"
+    environment:
+      - EMAIL_VERIFICATION_SID=${EMAIL_VERIFICATION_SID}
+      - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN}
+      - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID}
+    restart: always
+
+volumes:
+  data:
