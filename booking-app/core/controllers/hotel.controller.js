@@ -9,8 +9,7 @@ export const createHotel = async (req, res) => {
       return res.status(400).send({
         error: true,
         message: 'Please upload at least one image',
-          })
-      );
+      });
     }
 
     if (result.error) {
