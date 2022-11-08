@@ -6,10 +6,13 @@ export const createHotel = async (req, res) => {
   const { title, city, street } = result.value;
   try {
     if (!req.files) {
-      return res.status(400),send({
-        error: true,
-        message: 'Please upload at least one image',
-      });
+      return (
+        res.status(400),
+        send({
+          error: true,
+          message: 'Please upload at least one image',
+        })
+      );
     }
 
     if (result.error) {
